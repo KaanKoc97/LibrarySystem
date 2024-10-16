@@ -1,4 +1,3 @@
-import { INTEGER } from 'sequelize';
 import { getAllUsers, getUser, createUser } from '../service/userService.js';
 
 const listUsers = async (req, res) => {
