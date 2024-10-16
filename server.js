@@ -1,13 +1,13 @@
-// import { authenticate } from './config';
-import app from './src/app.js';
 import 'dotenv/config'
+import sequelize from './src/config.js';
+import app from './src/app.js';
 
 const startServer = async () => {
     try {
-        // await sequelize.authenticate();
-        // console.log('Connected to the database.');
+        await sequelize.authenticate();
+        console.log('Connected to the database.');
 
-        // await sequelize.sync();
+        await sequelize.sync({force: true}); // make it removed in production
 
         const PORT = process.env.PORT || 3000;
         const HOST = process.env.HOST;
