@@ -34,9 +34,9 @@ Provide step-by-step instructions on how to install and set up your project loca
    npm start
 
 ## Tech Stack 
-Backend: Node.js, Express.js 
-Database: PostgreSQL with Sequelize ORM
-API Testing: Postman or similar tool
+- Backend: Node.js, Express.js 
+- Database: PostgreSQL with Sequelize ORM
+- API Testing: Postman or similar tool
 
 ## Configuration
 The configuration details for the database connection and environment variables should be set up in a .env file at the root of the project.
@@ -55,26 +55,25 @@ The configuration details for the database connection and environment variables 
 
 ## Database Schema
 
-The system uses the following entities:
-User: Contains user information (e.g., name, id).
- Book: Contains book details (e.g., name, rating, votes).
- UserBook: A table to track the borrowing and returning of books(e.g., borrowedDate, returnDates).
+*The system uses the following entities:*
+- User: Contains user information (e.g., name, id).
+- Book: Contains book details (e.g., name, rating, votes).
+- UserBook: A table to track the borrowing and returning of books(e.g., borrowedDate, returnDates).
 
 ## Relationships
 Many-to-One: A user can borrow multiple books, but each borrowing entry is linked to a single user and a single book.
 
 ## API Endpoints
-Here is a list of the main API endpoints:
-User Endpoints
-POST /users - Create a new user
-GET /users - Get all users
-GET /users/:id - Get a user by ID with previosly borrowed and currently borrowed details
+ *User Endpoints*
+- POST /users - Create a new user
+- GET /users - Get all users
+- GET /users/:id - Get a user by ID with previosly borrowed and currently borrowed details
 
-Book Endpoints
-POST /books - Add a new book
-GET /books - Get all books
-GET /books/:id - Get book details by ID with name and ratings details
+ *Book Endpoints*
+- POST /books - Add a new book
+- GET /books - Get all books
+- GET /books/:id - Get book details by ID with name and ratings details
 
-Borrowing/Returning Endpoints
-POST /users/:uid/borrow/:bid - Borrow books for a user
-POST /users/:uid/return/:bid - Return a borrowed book
+ *Borrowing/Returning Endpoints*
+- POST /users/:uid/borrow/:bid - Borrow books for a user
+- POST /users/:uid/return/:bid - Return a borrowed book
