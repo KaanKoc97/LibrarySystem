@@ -1,6 +1,6 @@
 import UserBook from '../model/UserBook.js'
 import { getBook } from './bookService.js';
-import { cumulativeAverage, incrementVotesbyPk, updateRating } from '../utils/utils.js';
+import { cumulativeAverage, incrementVotesbyPk, updateRating, updateReturnDate } from '../utils/utils.js';
 
 export const borrowBook = async (uid, bid)=> {
     try {
@@ -19,6 +19,7 @@ export const returnABook = async (uid, bid, lastRating)=> {
         const newRating = cumulativeAverage(rating, lastRating, prevVotes);  
         const resultIncrement = incrementVotesbyPk(bid);
         const resultUpdate = updateRating(newRating, bid);
+        const resultReturnDate = updateReturnDate(uid, bid);
         return resultUpdate;
 
     } catch (error) {

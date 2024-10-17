@@ -1,4 +1,7 @@
 import User from '../model/User.js'
+import UserBook from '../model/UserBook.js';
+import Book from '../model/Book.js'
+import { filterCurrentlyBorrowed } from '../utils/utils.js';
 
 export const getAllUsers = async ()=> {
     try {
@@ -12,7 +15,24 @@ export const getAllUsers = async ()=> {
 export const getUser = async (userId)=> {
     try {
         const user = await User.findOne({where: {id: userId}});
-        return user;
+        const name = user.name;
+        const borrowedBooks = await UserBook.findAll({
+            where: { userId: userId },
+            include: [
+                {
+                    model: Book,
+                    attributes: ['id', 'name', 'rating'],
+                },
+            ],
+        });
+        const bookList = borrowedBooks.map((borrow) => ({
+            id: borrow.Book.id,
+            name: borrow.Book.name,
+            rating: borrow.Book.rating,
+        }));
+        const currentlyBorrowed = await filterCurrentlyBorrowed(bookList);
+        const response = { name: name, borrowedBooks: bookList, currentlyBorrowed: currentlyBorrowed};
+        return response;
     } catch (error) {
         console.log('Query of getUser has failed!', error.message);
     }

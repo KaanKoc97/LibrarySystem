@@ -163,10 +163,14 @@ export const validateBorrow = [
                 return res.status(400).json({ error: `Book with ID ${bookId} does not exist.` });
             }
 
-            const duplicateBorrow = await UserBook.findOne({where: { userId:userId, bookId:bookId }});
-            if(duplicateBorrow) {
-                return res.status(400).json({ error: `Duplicate borrow of book ${bookId} by user ${userId} is not allowed.`});
-            }
+            const borrowExist = await UserBook.findOne({where: { userId:userId, bookId:bookId }});
+            if(borrowExist)
+            {
+                const returnDate = borrowExist.returnDate;
+                if(!returnDate) {
+                    return res.status(400).json({ error: `Duplicate borrow of book ${bookId} by user ${userId} is not allowed.`});
+                }
+            }            
 
             next();
         } catch (error) {
@@ -175,3 +179,58 @@ export const validateBorrow = [
     }
 ];
 
+export const validateReturn = [
+    param('uid')
+        .isNumeric()
+        .withMessage('User ID (uid) must be numeric')
+        .isInt({ min: 1 })
+        .withMessage('User ID (uid) must be greater than 0'),
+    param('bid')
+        .isNumeric()
+        .withMessage('Book ID (bid) must be numeric')
+        .isInt({ min: 1 })
+        .withMessage('Book ID (bid) must be greater than 0'),
+    body('score')
+        .isNumeric()
+        .withMessage('Score must be numeric')
+        .isInt({ min: 0})
+        .withMessage('Score must be bigger or equal to zero'),
+    
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+
+    async (req, res, next) => {
+        const { uid: userId, bid: bookId } = req.params;
+
+        try {
+            const userExists = await User.findByPk(userId);
+            if (!userExists) {
+                return res.status(400).json({ error: `User with ID ${userId} does not exist.` });
+            }
+
+            const bookExists = await Book.findByPk(bookId);
+            if (!bookExists) {
+                return res.status(400).json({ error: `Book with ID ${bookId} does not exist.` });
+            }
+            
+            const borrowExist = await UserBook.findOne({where: { userId:userId, bookId:bookId }});
+            if(!borrowExist)
+            {
+                return res.status(400).json({ error: `Borrowing with ID ${bookId} by user ${userId} does not exist.` });
+            }            
+            const isReturnable = borrowExist.borrowedDate - borrowExist.returnDate;
+            if(isReturnable <= 0) {
+                return res.status(400).json({ error: `Duplicate return of book ${bookId} by user ${userId} is not allowed.`});
+            }
+
+            next();
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error while validating IDs.' });
+        }
+    }
+];
