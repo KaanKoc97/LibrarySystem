@@ -1,4 +1,5 @@
-*Library System*
+*Library System
+
 A Node.js-based Library System that manages users, books, with borrowing and returning operations, using Sequelize and PostgreSQL.
 
 *Introduction*
