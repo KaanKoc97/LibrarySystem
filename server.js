@@ -7,7 +7,7 @@ const startServer = async () => {
         await sequelize.authenticate();
         console.log('Connected to the database.');
 
-        await sequelize.sync(); // force: false in prod
+        await sequelize.sync();
 
         const PORT = process.env.PORT || 3000;
         const HOST = process.env.HOST;
