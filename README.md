@@ -31,8 +31,6 @@ Provide step-by-step instructions on how to install and set up your project loca
 4. **Start the server**:
    ```bash
    npm start
-   
-
 ## Tech Stack 
 Backend: Node.js, Express.js 
 Database: PostgreSQL with Sequelize ORM
@@ -42,8 +40,8 @@ API Testing: Postman or similar tool
 ## Configuration
 The configuration details for the database connection and environment variables should be set up in a .env file at the root of the project.
 
-**Example .env file:**
-  ```bash
+Example .env file:
+     ```bash
   PORT=3000 
   HOST="localhost"
   DB_NAME="db"
