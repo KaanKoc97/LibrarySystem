@@ -26,28 +26,32 @@ Provide step-by-step instructions on how to install and set up your project loca
    npm install
    
 3. **Database configurations**:
+
    Create a PostgreSQL database. Update the database connection details in the configuration file.
 
-4. **Start the server**:
+5. **Start the server**:
    ```bash
    npm start
+
 ## Tech Stack 
 Backend: Node.js, Express.js 
 Database: PostgreSQL with Sequelize ORM
 API Testing: Postman or similar tool
 
-
 ## Configuration
 The configuration details for the database connection and environment variables should be set up in a .env file at the root of the project.
 
-Example .env file:
-     ```bash
-  PORT=3000 
-  HOST="localhost"
-  DB_NAME="db"
-  DB_HOST="localhost"
-  DB_USER="postgres"
-  DB_PASS="root"
+1. Create an `.env` file in the root of your project:
+   ```bash
+   touch .env
+2. Example .env file:
+   ```bash
+   PORT=3000 
+   HOST="localhost"
+   DB_NAME="db"
+   DB_HOST="localhost"
+   DB_USER="postgres"
+   DB_PASS="root"
 
 ## Database Schema
 
