@@ -9,6 +9,22 @@ const UserBook = sequelize.define('UserBook', {
         primaryKey: true,
         autoIncrement: true,
     },
+    userId: {
+        type: DataTypes.INTEGER,
+        foreignKey: true,
+        references: {
+            model: User,
+            key: 'id', 
+        },
+    },
+    bookId: {
+        type: DataTypes.INTEGER,
+        foreignKey: true,
+        references: {
+            model: Book,
+            key: 'id',
+        },
+    },
     borrowedDate: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -20,7 +36,10 @@ const UserBook = sequelize.define('UserBook', {
     }
 });
 
-User.belongsToMany(Book, { through: UserBook });
-Book.belongsTo(User, { through: UserBook });
+User.hasMany(UserBook, { foreignKey: 'userId' });
+UserBook.belongsTo(User, { foreignKey: 'userId' });
+
+Book.hasMany(UserBook, { foreignKey: 'bookId' });
+UserBook.belongsTo(Book, { foreignKey: 'bookId' });
 
 export default UserBook;

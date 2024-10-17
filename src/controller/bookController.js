@@ -22,8 +22,8 @@ const getABook = async (req, res) => {
 
 const createNewBook = async (req, res) => {
     try {
-        const { name, copy } = req.body;
-        const result = await createBook({ name, copy });
+        const { name } = req.body;
+        const result = await createBook({ name });
         res.status(200).json({ success: true, data: result });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error producing message', error: error.message });

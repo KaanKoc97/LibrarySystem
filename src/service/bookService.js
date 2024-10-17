@@ -9,9 +9,9 @@ export const getAllBooks = async ()=> {
     }
 };
 
-export const getBook = async (bookId)=> {
+export const getBook = async(bookId)=> {
     try {
-        const user = await Book.findOne({where: {id: bookId}});
+        const user = await Book.findOne({where: {id: bookId}});        
         return user;
     } catch (error) {
         console.log('Query of getUser has failed!', error.message);
@@ -19,10 +19,10 @@ export const getBook = async (bookId)=> {
 };
 
 export const createBook = async (data)=> {
-    try {
+    try {        
         const book = await Book.create(data);
         return book;
     } catch (error) {
-        console.log('Query of createBook has failed!', error.message);
+        console.log('createBook has failed!', error.message);
     }
 }

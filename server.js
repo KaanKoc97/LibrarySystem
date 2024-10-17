@@ -7,7 +7,7 @@ const startServer = async () => {
         await sequelize.authenticate();
         console.log('Connected to the database.');
 
-        await sequelize.sync({force: true}); // make it removed in production
+        await sequelize.sync(); // force: false in prod
 
         const PORT = process.env.PORT || 3000;
         const HOST = process.env.HOST;

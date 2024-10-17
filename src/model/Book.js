@@ -9,12 +9,24 @@ const Book = sequelize.define('Book',{
     },
     name: {
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false,
     },
-    copy: {
-        type: DataTypes.INTEGER,
-        defaultValue: 1,
+    rating: {
+        type: DataTypes.FLOAT,
+        defaultValue: 0.0,
         allowNull: false,
+        validate: {
+            min: 0,
+        },
+    },
+    votes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+        validate: {
+            min: 0
+        },
     }
 });
 
